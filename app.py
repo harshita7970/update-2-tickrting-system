@@ -1,4 +1,4 @@
-import streamlit as st
+mport streamlit as st
 import hashlib
 import datetime
 import random
@@ -112,14 +112,19 @@ else:
     st.info("No tickets issued yet.")
 
 # -------------------------------
-# Full Blockchain Summary (Readable)
+# Full Blockchain Summary
 # -------------------------------
-st.subheader("⛓ Blockchain Summary")
+st.subheader("⛓ Full Blockchain Ledger (All Blocks)")
 
+block_records = []
 for block in st.session_state.blockchain.chain:
-    st.markdown(f"**Block Index:** {block.index}")
-    st.markdown(f"**Timestamp:** {block.timestamp}")
-    st.markdown(f"**Previous Hash:** {block.previous_hash}")
-    st.markdown(f"**Hash:** {block.hash}")
-    st.markdown(f"**Data:** {block.data}")
-    st.markdown("---")
+    block_records.append([
+        block.index,
+        block.timestamp,
+        block.data,
+        block.previous_hash,
+        block.hash
+    ])
+
+df_blocks = pd.DataFrame(block_records, columns=["Index", "Timestamp", "Data", "Previous Hash", "Hash"])
+st.dataframe(df_blocks)
