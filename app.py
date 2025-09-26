@@ -112,19 +112,14 @@ else:
     st.info("No tickets issued yet.")
 
 # -------------------------------
-# Full Blockchain Summary
+# Full Blockchain Summary (Readable)
 # -------------------------------
-st.subheader("⛓ Full Blockchain Ledger (All Blocks)")
+st.subheader("⛓ Blockchain Summary")
 
-block_records = []
 for block in st.session_state.blockchain.chain:
-    block_records.append([
-        block.index,
-        block.timestamp,
-        block.data,
-        block.previous_hash,
-        block.hash
-    ])
-
-df_blocks = pd.DataFrame(block_records, columns=["Index", "Timestamp", "Data", "Previous Hash", "Hash"])
-st.dataframe(df_blocks)
+    st.markdown(f"**Block Index:** {block.index}")
+    st.markdown(f"**Timestamp:** {block.timestamp}")
+    st.markdown(f"**Previous Hash:** {block.previous_hash}")
+    st.markdown(f"**Hash:** {block.hash}")
+    st.markdown(f"**Data:** {block.data}")
+    st.markdown("---")
